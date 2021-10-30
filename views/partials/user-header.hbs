@@ -1,7 +1,7 @@
 <header>
     <nav class="mt-1 navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" href="/">
                 <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F2%2F27%2FSquare%252C_Inc_-_Square_Logo.jpg&f=1&nofb=1"
                     alt="" width="30" height="30">
             </a>
@@ -19,7 +19,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/cart">Cart</a>
+                        <a class="nav-link" href="/cart">Cart <span class="badge bg-primary">{{cartCount}}</span></a>
                     </li>
                 {{#if user}}
                     <li class="nav-item">
