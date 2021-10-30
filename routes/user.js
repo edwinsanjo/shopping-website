@@ -1,5 +1,6 @@
 var express = require('express');
-var productHelper = require("../helpers/product-helper")
+var productHelper = require("../helpers/product-helper");
+const userHelpers = require('../helpers/user-helpers');
 var userHelper = require("../helpers/user-helpers")
 var router = express.Router();
 const verifyLogin = (req, res, next) => {
@@ -32,9 +33,13 @@ router.get("/login", function(req, res) {
 router.get("/signup", function(req, res) {
   res.render("user/signup")
 })
+
 router.post("/signup", (req, res) => {
   userHelper.doSignup(req.body).then((response) => {
     console.log(response);
+    req.session.loggedIn = true
+    req.session.user = response
+    res.redirect("/")
   })
 })
 
@@ -58,6 +63,12 @@ router.get("/logout", (req, res) => {
 
 router.get("/cart", verifyLogin, (req, res) => {
   res.render("user/cart")
+})
+
+router.get("/add-to-cart/:id", (req, res) => {
+  userHelpers.addToCart(req.params.id,req.session.user._id).then((response) => {
+    res.redirect("/")
+  })
 })
 
 module.exports = router;
