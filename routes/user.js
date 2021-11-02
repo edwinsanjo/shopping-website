@@ -67,15 +67,39 @@ router.get("/logout", (req, res) => {
 })
 
 router.get("/cart", verifyLogin, async(req, res) => {
+  
   let products = await userHelper.getCartProducts(req.session.user._id)
-  res.render("user/cart",{products,user:req.session.user})
+  let total = await userHelper.getTotalAmount(req.session.user._id)
+  res.render("user/cart",{products,user:req.session.user,total})
 })
 
 router.get("/add-to-cart/:id", (req, res) => {
   console.log("api called");
   userHelpers.addToCart(req.params.id,req.session.user._id).then((response) => {
-    // res.redirect("/")
+    res.json({status: true})
   })
+})
+
+router.post("/change-product-quantitiy", (req, res,next) => {
+  console.log(req.body);
+  userHelpers.changeProductQuantity(req.body).then(async(response) => {
+    response.total = await userHelper.getTotalAmount(req.body.user)
+    
+    res.json(response)
+
+  })
+})
+
+router.post("/remove-from-cart/", (req,res,next) => {
+    console.log(req.body);
+    userHelpers.removeFromCart(req.body.product, req.body.cart).then((data) => {
+      res.json({status:true})
+  })
+})
+
+router.get("/place-order",verifyLogin, async (req,res) => {
+  let total = await userHelper.getTotalAmount(req.session.user._id)
+  res.render("user/place-order",{total,user:req.session.user._id})
 })
 
 module.exports = router;

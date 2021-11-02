@@ -1,0 +1,42 @@
+ <section>
+     <div class="container mt-5">
+         <form action="" id="checkout-form">
+             <div class="row">
+                <div class="col-md-6">
+                     <h2>Enter Delivery Details</h2>
+                     <div>
+                         <label for="address">Adress</label>
+                         <input class="form-control" id="address" type="text" name="address">
+
+                         <label for="">Pincode</label>
+                         <input class="form-control" type="text" name="pincode">
+
+                         <label for="">Mobile</label>
+                         <input class="form-control" type="tel" name="mobile">
+                     </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container mt-5 ml-5 checkout">
+                        <h5>Total Amount: {{total}}</h5>
+                        <hr>
+                        <div class="payment">
+                            <p>Payment Method</p>
+                            <label class="radio-inline" for="" checked>COD
+                                <input type="radio" name="payment-method" value="COD" checked>
+                            </label> <br>
+                            <label class="radio-inline mt-2" for="" checked>Online Payment
+                                <input type="radio" name="payment-method" value="ONLINE">
+                            </label>
+                            <button class="btn btn-primary fload-end">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+             </div>
+         </form>
+     </div>
+ </section>
+ <script>
+     $("#checkout-form").submit((e) => {
+         e.preventDefault()
+     })
+ </script>
