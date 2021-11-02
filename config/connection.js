@@ -1,11 +1,12 @@
 const mongoClient = require("mongodb").MongoClient
+require('dotenv').config()
 
 const state = {
     db: null
 }
 
 module.exports.connect = (done) => {
-    const url = "mongodb+srv://EDWIN:EDWIN%40SANJO@projects.rwssd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    const url = process.env.mongo
     const dbName = "shopping"
 
     mongoClient.connect(url,(err,data) => {

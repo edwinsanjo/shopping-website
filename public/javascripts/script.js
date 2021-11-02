@@ -48,3 +48,34 @@ function remove(cartId,productId) {
     })
 }
 
+function ChangeQuantity(cartId,productId,userId,count,quantity) {
+    cartId = cartId.toString()
+    productId = productId.toString()
+    count = parseInt(count)
+    let strCount = parseInt(count)
+    userId = userId.toString()
+    let Quantity = quantity.toString()
+    quantity = parseInt(quantity)
+    console.log(cartId,productId,count,userId,quantity)
+    $.ajax({
+        url:"/change-product-quantitiy",
+        method: "post",
+        data: {
+            user:userId,
+            cart:cartId,
+            product:productId,
+            count:strCount,
+            quantity:Quantity
+        },
+        success:(res) => {
+            if(res.removeProduct) {
+                alert("product removed from cart")
+                location.reload();
+            }else {
+                console.log(res)
+                document.getElementById(productId).innerHTML = quantity+count
+                document.getElementById("total").innerHTML=res.total
+            }
+        }
+    })
+}

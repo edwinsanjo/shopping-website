@@ -4,6 +4,7 @@ var bcrypt = require("bcrypt")
 var objectId = require("mongodb").ObjectId
 const { getProductDetails } = require("./product-helper")
 const { log } = require("debug")
+const { response } = require("express")
 
 module.exports={
     doSignup: (userData) => {
@@ -130,6 +131,7 @@ module.exports={
 
     changeProductQuantity: (details) => {
         let count = parseInt(details.count)
+        let quantitiy = parseInt(details.quantity)
         console.log(count)
 
         return new Promise((resolve, reject) => {
@@ -137,7 +139,7 @@ module.exports={
                 db.get().collection(collection.CART_COLLECTION)
                 .updateOne({_id: objectId(details.cart)},
                 {
-                    $pull:{products:{item:objectId(product)}}
+                    $pull:{products:{item:objectId(details.product)}}
                 }
                 ).then((response) => {
 
@@ -172,6 +174,7 @@ module.exports={
         })
     },
     getTotalAmount: (userId) => {
+        console.log(userId)
         return new Promise(async(resolve, reject) => {
             let total = await db.get().collection(collection.CART_COLLECTION).aggregate([
                 {
@@ -208,8 +211,84 @@ module.exports={
                     }
                 }
             ]).toArray()
-            console.log(total[0].total);
-            resolve(total[0].total)
+            if(total[0] == null) {
+                resolve(0)
+            }else {
+                console.log(total)
+                resolve(total[0].total)
+            }
+        })
+    },
+    getCartProductList: (userId) => {
+        return new Promise(async(resolve,reject) => {
+            let cart = await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
+            resolve(cart.products)
+        })
+    },
+
+    placeOrder: (order,products,total)=> {
+        return new Promise((resolve,reject) => {
+            console.log(order,products,total)
+            let status = order["payment-method"] === "COD" ? "placed" : "pending"
+            let orderObj = {
+                delivery:{
+                    mobile: order.mobile,
+                    address: order.address,
+                    pincode: order.pincode
+                },
+                userId: objectId(order.userId),
+                paymentMethod: order["payment-method"],
+                products:products,
+                totoalAmount: total,
+                status:status,
+                date: new Date()
+            }
+
+            db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((data) => {
+                db.get().collection(collection.CART_COLLECTION).deleteOne({user:objectId(order.userId)})
+                    resolve()
+            })
+        })
+    },
+    getUserOrders: (userId) => {
+        return new Promise(async(resolve,reject) => {
+            let orders = await db.get().collection(collection.ORDER_COLLECTION)
+                .find({userId:objectId(userId)}).toArray()
+            resolve(orders)
+        })
+    },
+    getOrderProducts: (orderId) => {
+        return new Promise(async(resolve,reject) => {
+            let order = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $match: {_id:objectId(orderId)}
+                },
+                {
+                    $unwind:"$products"
+                },
+                {
+                    $project: {
+                        item: "$products.item",
+                        quantity: '$products.quantity',
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.PRODUCT_COLLECTION,
+                        localField: 'item',
+                        foreignField: "_id",
+                        as:'product'
+                    }
+                },
+                {
+                    $project: {
+                        item:1,quantity:1,product:{
+                            $arrayElemAt:["$product",0]
+                        }
+                    }
+                }
+            ]).toArray()
+            resolve(order)
         })
     },
 }
