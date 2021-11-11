@@ -2,9 +2,8 @@ const db = require("../config/connection")
 const collection = require("../config/collections")
 var bcrypt = require("bcrypt")
 var objectId = require("mongodb").ObjectId
-const { getProductDetails } = require("./product-helper")
-const { log } = require("debug")
-const { response } = require("express")
+const Razorpay = require("razorpay")
+require("dotenv").config()
 
 module.exports={
     doSignup: (userData) => {
@@ -23,6 +22,9 @@ module.exports={
             let loginStatus = false
             let response = {}
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({Email: userData.Email})
+            if(user.admin){
+                response.admin = true
+            }
             if(user) {
                 bcrypt.compare(userData.Password, user.Password).then((status) => {
                     if(status) {
@@ -246,7 +248,8 @@ module.exports={
 
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((data) => {
                 db.get().collection(collection.CART_COLLECTION).deleteOne({user:objectId(order.userId)})
-                    resolve()
+                    console.log("data:*****************",data)
+                    resolve(data.insertedId)
             })
         })
     },
@@ -291,4 +294,5 @@ module.exports={
             resolve(order)
         })
     },
+
 }

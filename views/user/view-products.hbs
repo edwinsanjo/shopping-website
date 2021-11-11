@@ -1,21 +1,22 @@
-<section>
-    <div class="container mt-5">
-        <div class="row">
+    <div class="w-full">
+        <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
 
-            {{#each products}}
-            <div class="col-md-3 mb-4">
-                <div class="card" style="width: 15rem; height: 23rem;">
-                    <img src="/images/product-images/{{this._id}}.png" class="card-img-top" style="height: 14rem;" alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">{{this.Name}}</h5>
-                        <p class="card-text">{{this.Description}}</p>
-                        <p class="card-title">Rs. {{this.Price}}</p>
-                        <button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to Cart</button>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                {{#each products}}
+                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                    <img class="w-full" src="/images/product-images/{{this._id}}.png" style="height: 350px;" alt="Sunset in the mountains">
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl mb-2">{{this.Name}}</div>
+                      <p class="text-gray-700 text-base">
+                        {{this.Description}}
+                      </p>
+                      <p class="text-gray-700 text-base">Rs. {{this.Price}}</p>
+                      <button class="w-full bg-green-400 hover:bg-green-600 rounded mt-4 py-3 text-white" onclick="addToCart('{{this._id}}')">Add to Cart</button>
                     </div>
-                </div>
+                  </div>
+                {{/each}}
+
             </div>
-            {{/each}}
-            
-        </div>
+        </section>
     </div>
-</section>

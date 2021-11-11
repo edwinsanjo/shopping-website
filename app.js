@@ -13,6 +13,7 @@ var session = require("express-session")
 
 var app = express();
 
+require("dotenv").config()
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -25,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
-app.use(session({secret:"EDWiN-SANjO-SOJi",
+app.use(session({secret:process.env.SESSION_SECRET,
                 cookie:{maxAge:5259600000},
                 resave: true,
                 saveUninitialized: true

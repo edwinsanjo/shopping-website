@@ -1,11 +1,10 @@
 var express = require('express');
-const { USER_COLLECTION } = require('../config/collections');
 var productHelper = require("../helpers/product-helper");
 const userHelpers = require('../helpers/user-helpers');
 var userHelper = require("../helpers/user-helpers")
 var router = express.Router();
 const verifyLogin = (req, res, next) => {
-  if(req.session.loggedIn) {
+  if(req.session.userloggedIn) {
     next()
   }else {
     res.redirect("/login")
@@ -27,11 +26,12 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get("/login", function(req, res) {
-  if(req.session.loggedIn){
+  if(req.session.user){
     res.redirect("/")
   }else {
-    res.render("user/login", {"loginErr": req.session.loginErr})
-    req.session.loginErr = ""
+
+    res.render("user/login", {"loginErr": req.session.userLoginErr})
+    req.session.userLoginErr = false
   }
 })
 
@@ -42,8 +42,8 @@ router.get("/signup", function(req, res) {
 router.post("/signup", (req, res) => {
   userHelper.doSignup(req.body).then((response) => {
     console.log(response);
-    req.session.loggedIn = true
     req.session.user = response
+    req.session.loggedIn = true
     res.redirect("/")
   })
 })
@@ -51,8 +51,10 @@ router.post("/signup", (req, res) => {
 router.post("/login", (req, res) => {
   userHelper.doLogin(req.body).then((response) => {
     if(response.status){
-      req.session.loggedIn = true
+
       req.session.user = response.user
+      req.session.admin = response.admin
+      req.session.loggedIn = true
       res.redirect("/")
     }else{
       req.session.loginErr = "Invalid Username or Password"
@@ -62,14 +64,18 @@ router.post("/login", (req, res) => {
 })
 
 router.get("/logout", (req, res) => {
-  req.session.destroy()
+  req.session.user = null
+  req.session.admin = false
   res.redirect("/")
 })
 
 router.get("/cart", verifyLogin, async(req, res) => {
   
   let products = await userHelper.getCartProducts(req.session.user._id)
-  let total = await userHelper.getTotalAmount(req.session.user._id)
+  if(products.length >0){
+    let total = 0
+  }
+  total = await userHelper.getTotalAmount(req.session.user._id)
   res.render("user/cart",{products,user:req.session.user,total})
 })
 
@@ -104,10 +110,13 @@ router.get("/place-order",verifyLogin, async (req,res) => {
 router.post("/place-order", verifyLogin, async(req,res) => {
   let products = await userHelper.getCartProductList(req.body.userId)
   let totalPrice = await userHelper.getTotalAmount(req.body.userId)
-  userHelpers.placeOrder(req.body,products,totalPrice).then((response) => {
-    res.json({status:true})
+  userHelpers.placeOrder(req.body,products,totalPrice).then((orderId) => {
+    if(req.body['payment-method'] === "COD"){
+      res.json({status:true})
+    }else{
+      res.send("Online Payment Not Available")
+}
   })
-  console.log(req.body);
 })
 
 router.get("/order-success",(req,res) => {

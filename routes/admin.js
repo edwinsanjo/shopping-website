@@ -1,20 +1,28 @@
 var express = require('express');
 var router = express.Router();
-var productHelper = require("../helpers/product-helper")
+var productHelper = require("../helpers/product-helper");
+
+const verifyAdmin = (req, res, next) => {
+  if(req.session.admin) {
+    next()
+  }else {
+    res.redirect("/login")
+  }
+}
 
 /* GET users listing. */
-router.get('/', (req, res, next) => {
+router.get('/', verifyAdmin, (req, res, next) => {
   productHelper.getAllProducts().then((products) => {
     res.render("admin/view-products", { products, admin: true })
   })
 
 });
 
-router.get("/add-product", (req, res) => {
+router.get("/add-product", verifyAdmin, (req, res) => {
   res.render("admin/add-product")
 })
 
-router.post("/add-product", (req, res) => {
+router.post("/add-product", verifyAdmin, (req, res) => {
   req.body.Price = parseInt(req.body.Price)
   productHelper.addProduct(req.body, (id) => {
     let image = req.files.Image
@@ -28,20 +36,20 @@ router.post("/add-product", (req, res) => {
 
 })
 
-router.get("/delete-product/:id", (req, res) => {
+router.get("/delete-product/:id", verifyAdmin, (req, res) => {
   let productId = req.params.id
   productHelper.deleteProduct(productId).then((data) => {
     res.redirect("/admin")
   })
 })
 
-router.get("/edit-product/:id", async(req,res) => {
+router.get("/edit-product/:id", verifyAdmin, async(req,res) => {
   let product = await productHelper.getProductDetails(req.params.id)
   console.log(product);
   res.render("admin/edit-product", {product})
 })
 
-router.post("/edit-product/:id", (req,res) => {
+router.post("/edit-product/:id", verifyAdmin, (req,res) => {
   productHelper.updateProduct(req.params.id, req.body).then((data) => {
     res.redirect("/admin")
     let image = req.files.Image

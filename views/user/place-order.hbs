@@ -26,7 +26,7 @@
                             <label class="radio-inline" for="" checked>COD
                                 <input type="radio" name="payment-method" value="COD" checked>
                             </label> <br>
-                            <label class="radio-inline mt-2" for="" checked>Online Payment
+                            <label class="radio-inline mt-2" for="" id="onlinePayment">Online Payment (currently Not available)
                                 <input type="radio" name="payment-method" value="ONLINE">
                             </label>
                             <button class="btn btn-primary fload-end">Checkout</button>
@@ -53,4 +53,6 @@
              }
          })
      })
+
+     document.getElementById("onlinePayment").disabled = false;  
  </script>

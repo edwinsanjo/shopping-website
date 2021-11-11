@@ -36,3 +36,109 @@
         <a href="/place-order" class="btn btn-success float-end mr-5">Place Order</a>
     </div>
 </section>
+
+
+
+
+
+
+  <link rel="stylesheet" href="stylesheet/style.css">
+  <style>
+        #summary {
+      background-color: #f6f6f6;
+    }
+    .background {
+        background: linear-gradient(to right top, #65dfc9, #6cdbeb);
+    }
+
+    .glass{
+        background: linear-gradient(
+            to right bottom,
+            rgba(255, 255, 255, 0.7),
+            rgba(255, 255, 255, 0.3)
+    );
+    }
+    .glass-two{
+        background: linear-gradient(
+            to bottom right,
+            rgba(255, 255, 255, 0.3),
+            rgba(255, 255, 255, 0.7)
+    );
+    }
+  </style>
+</head>
+<body class="background">
+  <div class="container mx-auto mt-10">
+    <div class="flex shadow-md my-10">
+      <div class="w-3/4 glass px-10 py-10">
+        <div class="flex justify-between border-b pb-8">
+          <h1 class="font-semibold text-2xl">Shopping Cart</h1>
+        </div>
+        <div class="flex mt-10 mb-5">
+          <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
+          <h3 class="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
+          <h3 class="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
+          <h3 class="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
+        </div>
+
+        {{#each products}}
+            <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+            <div class="flex w-2/5"> <!-- product -->
+                <div class="w-20">
+                <img class="h-24" src="/images/product-images/{{this.product._id}}.png" alt="">
+                </div>
+                <div class="flex flex-col justify-between ml-4 flex-grow">
+                <span class="font-bold text-sm">{{this.product.name}}</span>
+                <button onclick="remove('{{this._id}}','{{this.product._id}}')" class="font-semibold hover:text-red-500 text-gray-700 text-xs">Remove</button>
+                </div>
+            </div>
+            <div class="flex justify-center w-1/5">
+            
+                <button class="" onclick="ChangeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1,'{{this.quantity}}')">
+                <svg class="fill-current text-gray-700 w-3" viewBox="0 0 448 512"><path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
+                </svg>
+                </button>
+
+                <p class="mx-2 border text-center w-8"><span id="{{this.product._id}}">{{this.quantity}}</span></p>
+                
+                <button onclick="ChangeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1,'{{this.quantity}}')">
+                <svg class="fill-current text-gray-700 w-3" viewBox="0 0 448 512">
+                <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
+                </svg>
+                </button>
+
+            </div>
+            <span class="text-center w-1/5 font-semibold text-sm">{{this.product.Price}}</span>
+            <span class="text-center w-1/5 font-semibold text-sm">{{this.product.Price}}</span>
+            </div>
+        {{/each}}
+
+        
+
+        <a href="/" class="flex font-semibold text-indigo-600 text-sm mt-10">
+      
+          <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
+          Continue Shopping
+        </a>
+      </div>
+
+      <div id="summary" class="glass-two w-1/4 px-8 py-10">
+        <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
+        <div class="flex justify-between mt-10 mb-5">
+          <span class="font-semibold text-sm uppercase">Price</span>
+          <span class="font-semibold text-sm">$8643</span>
+        </div>
+        <div class="border-t mt-8">
+          <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+            <span>Total cost</span>
+            <span>{{total}}</span>
+          </div>
+          <button href="/place-order" class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout</>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+</body>
+</html>

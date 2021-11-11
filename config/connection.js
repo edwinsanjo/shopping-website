@@ -6,7 +6,7 @@ const state = {
 }
 
 module.exports.connect = (done) => {
-    const url = process.env.mongo
+    const url = process.env.MONGO
     const dbName = "shopping"
 
     mongoClient.connect(url,(err,data) => {
