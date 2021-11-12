@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var productHelper = require("../helpers/product-helper");
+const userHelpers = require('../helpers/user-helpers');
 
 const verifyAdmin = (req, res, next) => {
   if(req.session.admin) {
     next()
   }else {
-    res.redirect("/login")
+    res.redirect("/404")
   }
 }
 
@@ -62,6 +63,26 @@ router.post("/edit-product/:id", verifyAdmin, (req,res) => {
       })
     }
 })
+})
+
+router.get("/get-all-users", verifyAdmin, async(req,res) => {
+  let user = await userHelpers.getAllUsers().then((users) => {
+    console.log(users);
+    res.render("admin/view-users", {users})
+  })
+})
+
+router.get("/delete-user/:id", verifyAdmin, (req,res) => {
+  userHelpers.deleteUser(req.params.id).then((data) => {
+    res.redirect("/admin/get-all-users")
+  })
+}),
+
+router.get("/all-orders", verifyAdmin, (req,res) => {
+  productHelper.getAllOrders().then((orders) => {
+    console.log(orders);
+    res.render("admin/view-orders", {orders})
+  })
 })
 
 module.exports = router;

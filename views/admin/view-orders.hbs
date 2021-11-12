@@ -1,0 +1,44 @@
+  <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+    <div class="w-full overflow-x-auto">
+        <p class="text-center gray-800 text-4xl mb-8">All Products</p>
+
+      <table class="w-full">
+        <thead>
+          <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+            <th class="px-4 py-3">Date</th>
+            <th class="px-4 py-3">Address</th>
+            <th class="px-4 py-3">Pincode</th>
+            <th class="px-4 py-3">Mobile</th>
+            <th class="px-4 py-3">Amount</th>
+            <th class="px-4 py-3">Payment</th>
+            <th class="px-4 py-3">Action</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white">
+
+
+            {{#each orders}}
+          <tr class="text-gray-700">
+            <td class="px-4 py-3 text-ms font-semibold border">{{UNDEFINED}}</td>
+            <td class="px-4 py-3 text-ms font-semibold border">{{this.delivery.address}}</td>
+            <td class="px-4 py-3 text-ms font-semibold border">{{this.delivery.pincode}}</td>
+            <td class="px-4 py-3 text-ms font-semibold border">{{this.delivery.mobile}}</td>
+            <td class="px-4 py-3 text-ms font-semibold border">{{this.totoalAmount}}</td>
+            <td class="px-4 py-3 text-ms font-semibold border">{{this.paymentMethod}}</td>
+            <td class="px-4 py-3 text-ms font-semibold border">{{this.status}}</td>
+          </tr>
+          {{/each}}
+
+
+
+
+
+
+      
+                  <!-- More people... -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>

@@ -294,5 +294,17 @@ module.exports={
             resolve(order)
         })
     },
+    getAllUsers:() => {
+        return new Promise(async(resolve, reject) => {
+            let product = await db.get().collection(collection.USER_COLLECTION).find().toArray()
+            resolve(product)
+        })
+    },
+    deleteUser:(userId) => {
+        return new Promise(async(resolve, reject) => {
+            let user = await db.get().collection(collection.USER_COLLECTION).deleteOne({_id:objectId(userId)})
+            resolve(user)
+        })
+    },
 
 }

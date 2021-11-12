@@ -1,0 +1,35 @@
+
+    <section style="font-family: 'Poppins';" class="container mx-auto p-6 font-mono">
+  <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+    <div class="w-full overflow-x-auto">
+        <p class="text-center gray-800 text-4xl mb-8">All Products</p>
+
+      <table class="w-full">
+        <thead>
+          <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+            <th class="px-4 py-3">No</th>
+            <th class="px-4 py-3">Name</th>
+            <th class="px-4 py-3">Email</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white">
+
+
+
+        {{#each users}}
+          <tr class="text-gray-700">
+            <td class="px-4 py-3 text-ms font-semibold border">{{@index}}</td>
+            <td class="px-4 py-3 text-ms font-semibold border">{{this.Name}}</td>
+            <td class="px-4 py-3 text-ms font-semibold border">{{this.Email}}</td>
+            <td class="px-4 py-3 text-ms font-semibold border">{{#if this.admin}}True{{else}}false{{/if}}</td>
+          </tr>
+        {{/each}}
+
+
+      
+                 
+        </tbody>
+      </table>
+    </div>
+</div>
+</section>
