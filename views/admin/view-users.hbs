@@ -1,35 +1,41 @@
+<h1 class="text-center text-2xl my-5">All Users</h1>
+<div class="flex justify-center">
+  <table class="table-auto">
 
-    <section style="font-family: 'Poppins';" class="container mx-auto p-6 font-mono">
-  <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-    <div class="w-full overflow-x-auto">
-        <p class="text-center gray-800 text-4xl mb-8">All Products</p>
+    <thead class="w-9/12">
+      <tr>
+        <th class="border-b-2 border-gray-700 py-2">No</th>
+        <th class="border-b-2 border-gray-700 py-2">Name</th>
+        <th class="border-b-2 border-gray-700 py-2">Email</th>
+        <th class="border-b-2 border-gray-700 py-2">Admin</th>
+        <th class="border-b-2 border-gray-700 py-2">Delete</th>
+      </tr>
+    </thead>
 
-      <table class="w-full">
-        <thead>
-          <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-            <th class="px-4 py-3">No</th>
-            <th class="px-4 py-3">Name</th>
-            <th class="px-4 py-3">Email</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white">
-
-
-
-        {{#each users}}
-          <tr class="text-gray-700">
-            <td class="px-4 py-3 text-ms font-semibold border">{{@index}}</td>
-            <td class="px-4 py-3 text-ms font-semibold border">{{this.Name}}</td>
-            <td class="px-4 py-3 text-ms font-semibold border">{{this.Email}}</td>
-            <td class="px-4 py-3 text-ms font-semibold border">{{#if this.admin}}True{{else}}false{{/if}}</td>
-          </tr>
-        {{/each}}
+    <tbody>
 
 
-      
-                 
-        </tbody>
-      </table>
-    </div>
+      {{#each users}}
+      <tr class="border-b-2 border-gray-400">
+        <td class="px-6 py-2">{{@index}}</td>
+        <td class="px-6 py-2">{{this.Name}}</td>
+        <td class="px-6 py-2">{{this.Email}}</td>
+        <td class="px-6 py-2">{{#if this.admin}}True{{else}}false{{/if}}</td>
+        <td class="px-6 py-2 flex">
+          <a href="/admin/delete-user/{{this._id}}" class="p-2 bg-red-500 rounded text-white mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </a>
+        </td>
+      </tr>
+      {{/each}}
+
+
+
+    </tbody>
+
+  </table>
 </div>
-</section>

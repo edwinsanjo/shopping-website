@@ -4,7 +4,7 @@ const userHelpers = require('../helpers/user-helpers');
 var userHelper = require("../helpers/user-helpers")
 var router = express.Router();
 const verifyLogin = (req, res, next) => {
-  if(req.session.userloggedIn) {
+  if(req.session.loggedIn) {
     next()
   }else {
     res.redirect("/login")
@@ -69,17 +69,19 @@ router.get("/logout", (req, res) => {
   res.redirect("/")
 })
 
-router.get("/cart", verifyLogin, async(req, res) => {
+router.get("/cart", verifyLogin,async(req, res) => {
   
   let products = await userHelper.getCartProducts(req.session.user._id)
+  total = await userHelper.getTotalAmount(req.session.user._id)
   if(products.length >0){
     let total = 0
   }
-  total = await userHelper.getTotalAmount(req.session.user._id)
-  res.render("user/cart",{products,user:req.session.user,total})
+
+    res.render("user/cart",{products,user:req.session.user,total})
+
 })
 
-router.get("/add-to-cart/:id", (req, res) => {
+router.get("/add-to-cart/:id",verifyLogin, (req, res) => {
   console.log("api called");
   userHelpers.addToCart(req.params.id,req.session.user._id).then((response) => {
     res.json({status: true})

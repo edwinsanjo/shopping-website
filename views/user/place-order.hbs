@@ -1,58 +1,72 @@
- <section>
-     <div class="container mt-5">
-         <form action="" id="checkout-form">
-             <div class="row">
-                <div class="col-md-6">
-                     <h2>Enter Delivery Details</h2>
-                     <div>
-                         <label for="address">Adress</label>
-                         <input class="form-control" id="address" type="text" name="address">
+<script>
+    $("#checkout-form").submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            url: "/place-order",
+            method: "POST",
+            data: $("#checkout-form").serialize(),
+            success: (res) => {
+                alert("Order Placed Successfully")
+                if (res.status) {
+                    location.href = "/order-success"
 
-                         <label for="">Pincode</label>
-                         <input class="form-control" type="text" name="pincode">
+                }
+            }
+        })
+    })
 
-                         <label for="">Mobile</label>
-                         <input class="form-control" type="tel" name="mobile">
+    document.getElementById("onlinePayment").disabled = false;
+</script>
 
-                         <input type="text" name="userId" value="{{user._id}}" hidden>
-                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="container mt-5 ml-5 checkout">
-                        <h5>Total Amount: {{total}}</h5>
-                        <hr>
-                        <div class="payment">
-                            <p>Payment Method</p>
-                            <label class="radio-inline" for="" checked>COD
-                                <input type="radio" name="payment-method" value="COD" checked>
-                            </label> <br>
-                            <label class="radio-inline mt-2" for="" id="onlinePayment">Online Payment (currently Not available)
-                                <input type="radio" name="payment-method" value="ONLINE">
-                            </label>
-                            <button class="btn btn-primary fload-end">Checkout</button>
-                        </div>
+
+<div class="min-h-screen bg-gray-100 flex flex-col py-12 px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Place Order</h2>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-6 shadow rounded-lg sm:px-10">
+            <form class="mb-0 space-y-6" action="/place-order" method="POST">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Address</label>
+                    <div class="mt-1">
+                        <input id="text" name="address" type="text" required class="rounded-none" />
                     </div>
                 </div>
-             </div>
-         </form>
-     </div>
- </section>
- <script>
-     $("#checkout-form").submit((e) => {
-         e.preventDefault()
-         $.ajax({
-             url: "/place-order",
-             method: "POST",
-             data: $("#checkout-form").serialize(),
-             success: (res) => {
-                alert("Order Placed Successfully")
-                if(res.status){
-                    location.href = "/order-success"
-                    
-                }
-             }
-         })
-     })
 
-     document.getElementById("onlinePayment").disabled = false;  
- </script>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Pincode</label>
+                    <div class="mt-1">
+                        <input id="password" name="pincode" type="number" autocomplete="current-password" required
+                            class="rounded-none" />
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Mobile</label>
+                    <div class="mt-1">
+                        <input id="password" name="mobile" type="tel" required class="rounded-none" />
+                    </div>
+                </div>
+
+                <div>
+                    <label for="company-size" class="block text-sm font-medium text-gray-700">Payment method</label>
+                    <div class="mt-1">
+                        <select name="payment-method" id="company-size" class="rounded-none">
+                            <option value="delete">Please select</option>
+                            <option value="COD">COD(cash on delivery)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    
+                    <button type="submit"
+                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Place
+                        Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

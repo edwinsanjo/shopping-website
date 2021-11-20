@@ -1,65 +1,53 @@
-  <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-    <div class="w-full overflow-x-auto">
-        <p class="text-center gray-800 text-4xl mb-8">All Products</p>
+<h1 class="text-center text-2xl my-5">All Product</h1>
+<div class="flex justify-center">
+  <a href="/admin/add-product" class=" rounded p-2 my-2  text-center bg-green-500 text-white ">Add Products</a>
+</div>
+<div class="flex justify-center">
+  <table class="table-auto">
 
-      <table class="w-full">
-        <thead>
-          <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-            <th class="px-4 py-3">Name</th>
-            <th class="px-4 py-3">Category</th>
-            <th class="px-4 py-3">Price</th>
-            <th class="px-4 py-3">Image</th>
-            <th class="px-4 py-3">Options</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white">
+    <thead class="w-9/12">
+      <tr>
+        <th class="border-b-2 border-gray-700 py-2">Name</th>
+        <th class="border-b-2 border-gray-700 py-2">Category</th>
+        <th class="border-b-2 border-gray-700 py-2">Price</th>
+        <th class="border-b-2 border-gray-700 py-2">Image</th>
+        <th class="border-b-2 border-gray-700 py-2">Options</th>
+      </tr>
+    </thead>
+
+    <tbody>
 
 
-            {{#each products}}
-          <tr class="text-gray-700">
-            <td class="px-4 py-3 border">
-              <div class="flex items-center text-sm">
-                <div>
-                  <p class="font-semibold text-black">{{this.Name}}</p>
-                </div>
-              </div>
-            </td>
-            <td class="px-4 py-3 text-ms font-semibold border">{{this.Category}}</td>
-            <td class="px-4 py-3 text-ms font-semibold border">
-              Rs. {{this.Price}}
-            </td>
-            <td class="px-4 py-3 border">
-                <div class="flex items-center text-sm">
-                  <div class="relative w-20 h-20 mr-3 md:block">
-                    <img class="object-cover w-full h-full rounded" src="/images/product-images/{{this._id}}.png" alt="" loading="lazy" />
-                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                  </div>
-                </div>
-              </td>
-            <td class="px-4 py-3 text-sm border">
-                <a href="/delete-product/{{this._id}}" class="p-2 pl-5 pr-5 bg-blue-500 text-gray-100 text-lg rounded-lg focus:border-4 border-blue-300">
-                    <i class="fas fa-trash"></i>
-                </a>
-                <a href="/edit-product/{{this._id}}" class="p-2 pl-5 pr-5 bg-red-500 text-gray-100 text-lg rounded-lg focus:border-4 border-red-300">
-                    <i class="fas fa-pen"></i>
-                </a>
-            </td>
-          </tr>
-          {{/each}}
+      {{#each products}}
+      <tr class="border-b-2 border-gray-400">
+        <td class="px-6 py-2">{{this.Name}}</td>
+        <td class="px-6 py-2">{{this.Category}}</td>
+        <td class="px-6 py-2">{{this.Price}}</td>
+        <td class="px-6 py-2">
+          <img class="w-14" src="/images/product-images/{{this._id}}.png" alt="">
+        </td>
+        <td class="px-6 py-2 flex">
+          <a href="/admin/edit-product/{{this._id}}" class="p-2 bg-blue-500 rounded text-white mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+          </a>
+          <a href="/admin/delete-product/{{this._id}}" class="p-2 bg-red-500 rounded text-white mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </a>
+        </td>
+      </tr>
+      {{/each}}
 
 
 
+    </tbody>
 
-
-
-
-
-
-      
-                  <!-- More people... -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+  </table>
+</div>

@@ -1,44 +1,37 @@
-  <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-    <div class="w-full overflow-x-auto">
-        <p class="text-center gray-800 text-4xl mb-8">All Products</p>
+<h1 class="text-center text-2xl my-5">All orders</h1>
+<div class="flex justify-center">
+  <table class="table-auto">
 
-      <table class="w-full">
-        <thead>
-          <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-            <th class="px-4 py-3">Date</th>
-            <th class="px-4 py-3">Address</th>
-            <th class="px-4 py-3">Pincode</th>
-            <th class="px-4 py-3">Mobile</th>
-            <th class="px-4 py-3">Amount</th>
-            <th class="px-4 py-3">Payment</th>
-            <th class="px-4 py-3">Action</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white">
+    <thead class="w-9/12 overflow-x-auto">
+      <tr>
+        <th class="border-b-2 border-gray-700 py-2">Date</th>
+        <th class="border-b-2 border-gray-700 py-2">Address</th>
+        <th class="border-b-2 border-gray-700 py-2">Pincode</th>
+        <th class="border-b-2 border-gray-700 py-2">Mobile</th>
+        <th class="border-b-2 border-gray-700 py-2">Amount</th>
+        <th class="border-b-2 border-gray-700 py-2">Payment</th>
+        <th class="border-b-2 border-gray-700 py-2">Action</th>
+      </tr>
+    </thead>
 
-
-            {{#each orders}}
-          <tr class="text-gray-700">
-            <td class="px-4 py-3 text-ms font-semibold border">{{UNDEFINED}}</td>
-            <td class="px-4 py-3 text-ms font-semibold border">{{this.delivery.address}}</td>
-            <td class="px-4 py-3 text-ms font-semibold border">{{this.delivery.pincode}}</td>
-            <td class="px-4 py-3 text-ms font-semibold border">{{this.delivery.mobile}}</td>
-            <td class="px-4 py-3 text-ms font-semibold border">{{this.totoalAmount}}</td>
-            <td class="px-4 py-3 text-ms font-semibold border">{{this.paymentMethod}}</td>
-            <td class="px-4 py-3 text-ms font-semibold border">{{this.status}}</td>
-          </tr>
-          {{/each}}
+    <tbody class="overflow-x-auto">
 
 
+      {{#each orders}}
+      <tr class="border-b-2 border-gray-400">
+        <td class="px-6 py-2">{{UNDEFINED}}</td>
+        <td class="px-6 py-2">{{this.delivery.address}}</td>
+        <td class="px-6 py-2">{{this.delivery.pincode}}</td>
+        <td class="px-6 py-2">{{this.delivery.mobile}}</td>
+        <td class="px-6 py-2">{{this.totoalAmount}}</td>
+        <td class="px-6 py-2">{{this.paymentMethod}}</td>
+        <td class="px-6 py-2">{{this.status}}</td>
+      </tr>
+      {{/each}}
 
 
 
+    </tbody>
 
-      
-                  <!-- More people... -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+  </table>
+</div>

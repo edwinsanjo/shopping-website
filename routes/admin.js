@@ -20,7 +20,7 @@ router.get('/', verifyAdmin, (req, res, next) => {
 });
 
 router.get("/add-product", verifyAdmin, (req, res) => {
-  res.render("admin/add-product")
+  res.render("admin/add-product",{ admin: true })
 })
 
 router.post("/add-product", verifyAdmin, (req, res) => {
@@ -30,7 +30,7 @@ router.post("/add-product", verifyAdmin, (req, res) => {
     image.mv('./public/images/product-images/'+id+'.png', (err,done)=>{
       if(!err){
          
-        res.render("admin/add-product")
+        res.render("admin/add-product",{ admin: true })
       }
     })
   })
@@ -47,7 +47,7 @@ router.get("/delete-product/:id", verifyAdmin, (req, res) => {
 router.get("/edit-product/:id", verifyAdmin, async(req,res) => {
   let product = await productHelper.getProductDetails(req.params.id)
   console.log(product);
-  res.render("admin/edit-product", {product})
+  res.render("admin/edit-product",{ admin: true, product })
 })
 
 router.post("/edit-product/:id", verifyAdmin, (req,res) => {
@@ -58,7 +58,7 @@ router.post("/edit-product/:id", verifyAdmin, (req,res) => {
       image.mv('./public/images/product-images/'+req.params.id+'.png', (err,done)=>{
         if(!err){
            
-          res.render("admin/add-product")
+          res.render("admin/edit-product", { admin: true })
         }
       })
     }
@@ -68,7 +68,7 @@ router.post("/edit-product/:id", verifyAdmin, (req,res) => {
 router.get("/get-all-users", verifyAdmin, async(req,res) => {
   let user = await userHelpers.getAllUsers().then((users) => {
     console.log(users);
-    res.render("admin/view-users", {users})
+    res.render("admin/view-users", { admin: true, users})
   })
 })
 
@@ -81,7 +81,7 @@ router.get("/delete-user/:id", verifyAdmin, (req,res) => {
 router.get("/all-orders", verifyAdmin, (req,res) => {
   productHelper.getAllOrders().then((orders) => {
     console.log(orders);
-    res.render("admin/view-orders", {orders})
+    res.render("admin/view-orders", { admin: true, orders })
   })
 })
 

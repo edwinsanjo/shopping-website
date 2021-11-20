@@ -2,7 +2,6 @@ const db = require("../config/connection")
 const collection = require("../config/collections")
 var bcrypt = require("bcrypt")
 var objectId = require("mongodb").ObjectId
-const Razorpay = require("razorpay")
 require("dotenv").config()
 
 module.exports={
@@ -224,6 +223,7 @@ module.exports={
     getCartProductList: (userId) => {
         return new Promise(async(resolve,reject) => {
             let cart = await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
+            console.log(cart)
             resolve(cart.products)
         })
     },

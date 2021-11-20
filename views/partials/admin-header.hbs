@@ -1,50 +1,44 @@
-<style>
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-</style>
-<nav class="bg-gray-100">
+<nav class="bg-white shadow-lg">
   <div class="max-w-6xl mx-auto px-4">
     <div class="flex justify-between">
-
-      <div class="flex space-x-4">
-        <!-- logo -->
+      <div class="flex space-x-7">
         <div>
-          <a href="/" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
-            <svg class="h-6 w-6 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-            </svg>
-            <span class="font-bold">SHOPit</span>
+          <!-- Website Logo -->
+          <a href="/admin" class="flex items-center py-4 px-2">
+            <img src="https://picsum.photos/200" alt="Logo" class="h-8 rounded-full w-8 mr-1">
+            <span class="font-semibold text-gray-600 text-lg">Admin Pannel</span>
           </a>
         </div>
-
-        <!-- primary nav -->
-        <div class="hidden md:flex items-center mr-2 space-x-1">
-          <a href="/" class="py-5 px-3 text-gray-700 hover:text-gray-900">Products</a>
-          <a href="/cart" class="py-5 px-3 text-gray-700 hover:text-gray-900">All Orders</a>
-          <a href="/orders" class="py-5 px-3 text-gray-700 hover:text-gray-900">All users</a>
+        <!-- Primary Navbar items -->
+        <div class="hidden md:flex items-center space-x-3">
+          <a href="/admin" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Products</a>
+          <a href="/admin/get-all-users" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Users</a>
+          <a href="/admin/all-orders"
+            class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Orders</a>
         </div>
       </div>
-
-
-
-      <!-- mobile button goes here -->
+      <!-- Mobile menu button -->
       <div class="md:hidden flex items-center">
-        <button class="mobile-menu-button">
-          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <button class="outline-none mobile-menu-button">
+          <svg class=" w-6 h-6 text-gray-500 hover:text-green-500 " x-show="!showMenu" fill="none"
+            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
       </div>
-
     </div>
   </div>
-
   <!-- mobile menu -->
-  <div class="mobile-menu hidden md:hidden h-40 ml-6">
-    <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200">Products</a>
-    <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200">All Orders</a>
-    <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-200">All Users</a>
+  <div class="hidden mobile-menu">
+    <ul class="">
+      <li class="active"><a href="/admin"
+          class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Products</a></li>
+      <li><a href="/admin/get-all-users" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">users</a></li>
+      <li><a href="/admin/all-orders" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Orders</a></li>
+      
+      </div>
+
+    </ul>
   </div>
   <script>
     const btn = document.querySelector("button.mobile-menu-button");
@@ -54,4 +48,4 @@
       menu.classList.toggle("hidden");
     });
   </script>
-  </nav>
+</nav>

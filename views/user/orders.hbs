@@ -1,35 +1,35 @@
-<section>
-    <div class="container mt-5">
+<h1 class="text-center text-2xl my-5">Orders</h1>
+<div class="flex justify-center">
+    <table class="table-auto">
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Pincode</th>
-                    <th scope="col">Mobile</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Payment</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each orders}}
-                <tr>
-                    <td>{{this.Date}}</td>
-                    <td>{{this.delivery.address}}</td>
-                    <td>{{this.delivery.pincode}}</td>
-                    <td>{{this.delivery.mobile}}</td>
-                    <td>{{this.totoalAmount}}</td>
-                    <td>{{this.paymentMethod}}</td>
-                    <td>{{this.status}}</td>
-                    <td>
-                        <a href="/view-order-products/{{this._id}}" class="btn btn-primary">View Products</a>
-                    </td>
-                {{/each}}
-            </tbody>
-        </table>
+        <thead class="w-9/12 overflow-x-auto">
+            <tr>
+                <th class="border-b-2 border-gray-700 py-2">Date</th>
+                <th class="border-b-2 border-gray-700 py-2">Address</th>
+                <th class="border-b-2 border-gray-700 py-2">Pincode</th>
+                <th class="border-b-2 border-gray-700 py-2">Mobile</th>
+                <th class="border-b-2 border-gray-700 py-2">Amount</th>
+                <th class="border-b-2 border-gray-700 py-2">Payment</th>
+                <th class="border-b-2 border-gray-700 py-2">Action</th>
+            </tr>
+        </thead>
 
-    </div>
+        <tbody class="overflow-x-auto">
 
-</section>
+
+            {{#each orders}}
+            <tr class="border-b-2 border-gray-400">
+                <td class="px-6 py-2">{{UNDEFINED}}</td>
+                <td class="px-6 py-2">{{this.delivery.address}}</td>
+                <td class="px-6 py-2">{{this.delivery.pincode}}</td>
+                <td class="px-6 py-2">{{this.delivery.mobile}}</td>
+                <td class="px-6 py-2">{{this.totoalAmount}}</td>
+                <td class="px-6 py-2">{{this.paymentMethod}}</td>
+                <td class="px-6 py-2">{{this.status}}</td>
+            </tr>
+            {{/each}}
+
+        </tbody>
+
+    </table>
+</div>
